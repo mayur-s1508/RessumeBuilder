@@ -39,7 +39,7 @@
 
 div{
   background-color:whitesmoke;
-  height: 1050px;
+  height: 842px;
   width: 595px;
   /* to centre page on screen*/
   margin-left: auto;
@@ -51,13 +51,14 @@ div{
   font-weight: bold;
 }
 .left_sub_head{
-  font-size: small;
+  font-size: xx-small;
   margin-left:10px;
-  margin-top: -10px;  
+  margin-top: 1px;
+    
 }
 .right_sub_head{
-  font-size: small;
-  margin-top: -30px;
+  font-size: xx-small;
+  margin-top: -27px;
   text-align: right;
   margin-right: 10px;
 }
@@ -67,37 +68,48 @@ hr{
    border-style: solid;
    border-width: 1px;
    width: 575px;
-   color: skyblue;
+   color:skyblue;
 
 }
 .main_sub_head{
-  font-size: inherit;
-  font-weight: bold;
+  font-size: small;
+  font-weight:bold  ;
   text-align: center;
   margin-top: -10px;
 }
 
 ul{
+  margin-left: -20px;
   margin-top: -10px;
+  margin-right: 10px;
+
 }
 .unorder_list{
   margin-top: 0px;
+  
 }
 li{
-  font-size: small;
+  font-size: xx-small;
 }
+p.technicalSkill{
+  margin-left: 60px;
+  margin-top: -10px;
+  margin-right: 10px;
+  font-size: xx-small;
+}
+
 p.declaration{
-  font-size: small;
+  font-size: xx-small;
   margin-left: 10px;
   margin-right: 10px;
 }
 pre{
-  font-size: small;
+  font-size: xx-small;
   margin-left: 10px;
   margin-right: 10px;
 }
 table{
-  font-size: small;
+  font-size: xx-small;
   margin-left: 10px;
   margin-right: 10px;
 }
