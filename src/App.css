@@ -51,13 +51,13 @@ div{
   font-weight: bold;
 }
 .left_sub_head{
-  font-size: xx-small;
+  font-size: x-small;
   margin-left:10px;
   margin-top: 1px;
     
 }
 .right_sub_head{
-  font-size: xx-small;
+  font-size: x-small;
   margin-top: -27px;
   text-align: right;
   margin-right: 10px;
@@ -79,7 +79,7 @@ hr{
 }
 
 ul{
-  margin-left: -20px;
+  margin-left: -15px;
   margin-top: -10px;
   margin-right: 10px;
 
@@ -89,13 +89,13 @@ ul{
   
 }
 li{
-  font-size: xx-small;
+  font-size: x-small;
 }
 p.technicalSkill{
   margin-left: 60px;
   margin-top: -10px;
   margin-right: 10px;
-  font-size: xx-small;
+  font-size: x-small;
 }
 
 p.declaration{
@@ -111,5 +111,6 @@ pre{
 table{
   font-size: xx-small;
   margin-left: 10px;
+  margin-top: -15px;
   margin-right: 10px;
 }
