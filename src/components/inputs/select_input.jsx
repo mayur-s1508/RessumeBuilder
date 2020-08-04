@@ -4,7 +4,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 
 export default function SelectInput(props) {
-  const { options, getOptionLabel, setValue, label, size } = props;
+  const { options, getOptionLabel, setValue, label, size, value } = props;
   const [isError, setIsError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
 
@@ -32,6 +32,7 @@ export default function SelectInput(props) {
           {...params}
           variant="outlined"
           label={label}
+          value={value}
           // required
           size={size ? size : "small"}
           fullWidth

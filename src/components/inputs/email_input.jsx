@@ -3,7 +3,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 
 export default function EmailInput(props) {
-  const { setEmail, variant, size } = props;
+  const { setEmail, variant, size, value } = props;
 
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [emailError, setEmailError] = React.useState(false);
@@ -14,6 +14,7 @@ export default function EmailInput(props) {
       required
       fullWidth
       id="email"
+      value={value}
       size={size ? size : "small"}
       label="Email Address"
       name="email"

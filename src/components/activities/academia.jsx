@@ -9,6 +9,9 @@ import {
 } from "@material-ui/core";
 import MaterialTable from "material-table";
 import TextInput from "../inputs/text_input";
+import UserContext from "../tools/user_info";
+import { firestore } from "firebase";
+import CircularProgressIndicator from "../tools/circular_progress_indicator";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,8 +68,51 @@ function Academia() {
     setMark("");
   };
 
+  const user = React.useContext(UserContext);
+  const [pending, setPending] = React.useState(false);
+  const save = () => {
+    setPending(true);
+    firestore()
+      .collection("users")
+      .doc(user.uid)
+      .set(
+        {
+          academia: data,
+        },
+        { merge: true }
+      )
+      .then(() => {
+        setPending(false);
+        alert("Data saved successfully");
+      })
+      .catch((e) => {
+        setPending(false);
+        alert(e.message);
+      });
+  };
+
+  React.useEffect(() => {
+    setPending(true);
+    console.log(1);
+    firestore()
+      .collection("users")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists && doc.data().academia !== undefined) {
+          setData(doc.data().academia);
+        }
+        setPending(false);
+      })
+      .catch((e) => {
+        console.log(e);
+        setPending(false);
+      });
+  }, [user.uid]);
+
   return (
     <div>
+      <CircularProgressIndicator display={pending} />
       <Paper className={classes.root}>
         <Typography variant="h4" className={classes.heading}>
           Academia
@@ -132,6 +178,7 @@ function Academia() {
           variant="contained"
           color="primary"
           disabled={data.length === 0}
+          onClick={save}
         >
           Save
         </Button>

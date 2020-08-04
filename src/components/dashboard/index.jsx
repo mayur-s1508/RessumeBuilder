@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,6 +11,8 @@ import Academia from "../activities/academia";
 import Projects from "../activities/projects";
 import Certifications from "../activities/certifications";
 import Activities from "../activities/activities";
+import Download from "../activities/download";
+import PageNotFound from "../tools/not_found";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -46,10 +48,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Home() {
-  return <div>Home</div>;
-}
-
 function ResponsiveDrawer(props) {
   const { window } = props;
   const classes = useStyles();
@@ -60,28 +58,27 @@ function ResponsiveDrawer(props) {
   };
 
   return (
-    <Router>
-      <div className={classes.root}>
-        <CssBaseline />
-        <Appbar handleDrawerToggle={handleDrawerToggle} />
-        <Sidenav
-          mobileOpen={mobileOpen}
-          handleDrawerToggle={handleDrawerToggle}
-          window={window}
-        />
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Switch>
-            <Route exact path="/" component={Personals} />
-            <Route path="/academia" component={Academia} />
-            <Route path="/projects" component={Projects} />
-            <Route path="/certifications" component={Certifications} />
-            <Route path="/activities" component={Activities} />
-            <Route path="/downloads" component={Home} />
-          </Switch>
-        </main>
-      </div>
-    </Router>
+    <div className={classes.root}>
+      <CssBaseline />
+      <Appbar handleDrawerToggle={handleDrawerToggle} />
+      <Sidenav
+        mobileOpen={mobileOpen}
+        handleDrawerToggle={handleDrawerToggle}
+        window={window}
+      />
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Switch>
+          <Route exact path="/" component={Personals} />
+          <Route path="/academia" component={Academia} />
+          <Route path="/projects" component={Projects} />
+          <Route path="/certifications" component={Certifications} />
+          <Route path="/activities" component={Activities} />
+          <Route path="/download" component={Download} />
+          <Route path="*" component={PageNotFound} />
+        </Switch>
+      </main>
+    </div>
   );
 }
 

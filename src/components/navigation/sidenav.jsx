@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
@@ -10,7 +10,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import MailIcon from "@material-ui/icons/Mail";
-
+import { auth } from "firebase";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 const drawerWidth = 240;
@@ -77,7 +77,7 @@ const navList = [
   {
     title: "Downloads",
     icon: <Icon>home</Icon>,
-    link: "/downlaod",
+    link: "/download",
   },
 ];
 
@@ -85,6 +85,12 @@ function Sidenav(props) {
   const theme = useTheme();
   const classes = useStyles();
   const { mobileOpen, handleDrawerToggle, window } = props;
+
+  const [logout, setLogout] = React.useState(false);
+  const logoutUser = () => {
+    auth().signOut();
+    setLogout(true);
+  };
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -100,8 +106,16 @@ function Sidenav(props) {
         ))}
       </List>
       <Divider />
+      <ListItem button onClick={logoutUser}>
+        <ListItemIcon>
+          <Icon>power_settings_new</Icon>{" "}
+        </ListItemIcon>
+        <ListItemText primary="Sign Out" />
+      </ListItem>
     </div>
   );
+
+  if (logout) return <Redirect to="/login" />;
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
