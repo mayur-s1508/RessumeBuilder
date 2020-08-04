@@ -5,9 +5,9 @@ function App() {
   return (
     <div>
       <p className="head"><u>NIKHIL NANDKUMAR WAYKOS</u></p>
-      <p className="left_sub_head"><b>Email Id:</b> waykosn@gmail.com</p>
+      <p className="left_sub_head"><b>Email Id:</b><a href="#"> waykosn@gmail.com</a></p>
       <p className="right_sub_head"><b>Contact No.:</b> +91 95116 64263</p>
-      <p className="left_sub_head"><b>LinkedIn ID:</b> wwww.linkedin.com/in/nikhil-waykos-083610146</p>
+      <p className="left_sub_head"><b>LinkedIn ID:</b> <a href="wwww.linkedin.com/in/nikhil-waykos-083610146">wwww.linkedin.com/in/nikhil-waykos-083610146</a></p>
       <p className="right_sub_head"><b>Address:</b> Aurangabad, MH, India.</p>
       <hr />
       <p className="main_sub_head">ACADEMIA</p>
@@ -50,9 +50,9 @@ function App() {
         <li>Result Analysis Using R (2018–19) – Result calculation and analysis with graphs (simple Gui app)</li>
         <li>Website Project (2018-19) – Mini Project for Vegetables Shopping Site (HTML5, CSS, JS)</li>
         <li><ul typeof="circle" className="unorder_list">Freelancing In Static Website Development (Team project):
-          <li>Kaizeninfotek – URL: www.kaizeninfotek.com</li>
-          <li>TeckyTrick – URL: www.teckytrick.com</li>
-          <li>AnkurGECA – URL : ankur.geca.ac.in/</li>
+          <li>Kaizeninfotek – URL:<a href="www.kaizeninfotek.com"> www.kaizeninfotek.com</a></li>
+          <li>TeckyTrick – URL: <a href="www.teckytrick.com">www.teckytrick.com</a></li>
+          <li>AnkurGECA – URL : <a href="ankur.geca.ac.in/">ankur.geca.ac.in/</a></li>
           </ul></li>
       </ul>
       <hr />
@@ -68,6 +68,9 @@ function App() {
         <li>Coursera Introduction to TensorFlow for Artificial Intelligence, Machine Learning and Deep Learning</li>
         <li>Coursera Introduction and Programming with IoT Boards</li>
       </ul>
+      <p className="technicalSkill"><b>Technical Skills:</b> C, C++, Python, R, Android (Java), HTML5, CSS, JS, Bootstrap, PHP, SQL, Angular (Beginner),
+         React (Beginner), Flutter (Beginner), Firebase Server less Backend (Authentication, Database, Hosting) etc., MS-Office Suite 
+         (Word, Excel, PowerPoint).</p>
       <hr />
       <p className="main_sub_head">PARTICIPATED ACTIVITIES AND ACHIEVEMENTS</p>
       <ul>
