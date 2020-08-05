@@ -13,6 +13,7 @@ import Certifications from "../activities/certifications";
 import Activities from "../activities/activities";
 import Download from "../activities/download";
 import PageNotFound from "../tools/not_found";
+import UploadPhoto from "../activities/upload_photo";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -74,6 +75,7 @@ function ResponsiveDrawer(props) {
           <Route path="/projects" component={Projects} />
           <Route path="/certifications" component={Certifications} />
           <Route path="/activities" component={Activities} />
+          <Route path="/upload-photo" component={UploadPhoto} />
           <Route path="/download" component={Download} />
           <Route path="*" component={PageNotFound} />
         </Switch>

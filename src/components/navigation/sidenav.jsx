@@ -51,32 +51,37 @@ const useStyles = makeStyles((theme) => ({
 const navList = [
   {
     title: "Personal Info",
-    icon: <Icon>home</Icon>,
+    icon: <Icon>account_circle</Icon>,
     link: "/",
   },
   {
     title: "Academia",
-    icon: <Icon>home</Icon>,
+    icon: <Icon>school</Icon>,
     link: "/academia",
   },
   {
     title: "Projects",
-    icon: <Icon>home</Icon>,
+    icon: <Icon>engineering</Icon>,
     link: "/projects",
   },
   {
     title: "Certifications",
-    icon: <Icon>home</Icon>,
+    icon: <Icon>card_membership</Icon>,
     link: "/certifications",
   },
   {
     title: "Activities",
-    icon: <Icon>home</Icon>,
+    icon: <Icon>local_activity</Icon>,
     link: "/activities",
   },
   {
+    title: "Upload Photo",
+    icon: <Icon>insert_photo</Icon>,
+    link: "/upload-photo",
+  },
+  {
     title: "Downloads",
-    icon: <Icon>home</Icon>,
+    icon: <Icon>cloud_download</Icon>,
     link: "/download",
   },
 ];
@@ -97,10 +102,15 @@ function Sidenav(props) {
       <Divider />
       <List>
         {navList.map((text, index) => (
-          <ListItem button key={text.title} component={NavLink} to={text.link}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
+          <ListItem
+            button
+            key={text.title}
+            component={NavLink}
+            to={text.link}
+            activeClassName="active-nav-link"
+            exact
+          >
+            <ListItemIcon>{text.icon}</ListItemIcon>
             <ListItemText primary={text.title} />
           </ListItem>
         ))}

@@ -1,4 +1,88 @@
 .download {
   font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  color: #000;
+}
+.download-body {
+  padding: 16px 32px;
+}
+.name {
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  font-size: 24px;
+}
+.hr-line {
+  margin: 0;
+  border: 1px solid #4db6ac;
+  width: 100%;
+}
+.title1 {
+  width: 100%;
+  margin: 2px 0;
+  text-transform: uppercase;
   font-size: 16px;
+  text-align: center !important;
+}
+.table1,
+th,
+td,
+tr {
+  border: 1px solid #000;
+  border-collapse: collapse;
+}
+.table1 td {
+  padding: 2px 4px;
+  color: #000;
+}
+.table1 th {
+  padding: 2px 4px;
+}
+.table1 {
+  width: 100%;
+  margin: 0 8px;
+  margin-bottom: 8px;
+}
+ul {
+  padding-left: 16px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.self-att {
+  width: 100%;
+  margin: -2px 0 6px;
+  text-align: center;
+}
+td:nth-child(4),
+td:nth-child(5) {
+  text-align: center !important;
+}
+.teck-skills {
+  margin: 2px 0;
+}
+th:nth-child(1) {
+  width: 25% !important;
+}
+th:nth-child(2) {
+  width: 30% !important;
+}
+th:nth-child(3) {
+  width: 20% !important;
+}
+th:nth-child(4) {
+  width: 10% !important;
+}
+th:nth-child(5) {
+  width: 15% !important;
+}
+.logo {
+  width: 75px;
+  margin-top: -10px;
+  position: absolute;
+}
+.photo {
+  width: 75px;
+  margin-top: -10px;
+  position: absolute;
+  right: 30px;
 }
