@@ -61,7 +61,6 @@ export const SupplierSignup = (props) => {
       auth()
         .createUserWithEmailAndPassword(email, confirmPassword)
         .then(function (result) {
-          console.log(result);
           setIsLoginProgress(false);
           props.history.replace("/login");
         })
@@ -91,12 +90,17 @@ export const SupplierSignup = (props) => {
           </Typography>
 
           <form className={classes.form} onSubmit={signUp}>
-            <EmailInput setEmail={setEmail} size="normal" />
-            <PasswordInput setPassword={setPassword} size="normal" />
+            <EmailInput setEmail={setEmail} size="medium" />
+            <PasswordInput
+              setPassword={setPassword}
+              size="medium"
+              key="password"
+            />
             <ConfirmPasswordInput
+              key="confirm-password"
               setPassword={setConfirmPassword}
               password={password}
-              size="normal"
+              size="medium"
             />
             <Button
               type="submit"

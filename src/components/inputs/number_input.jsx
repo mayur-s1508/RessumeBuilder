@@ -3,7 +3,7 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 
 export default function NumberInput(props) {
-  const { setValue, label, size, value } = props;
+  const { setvalue, label, size, value } = props;
   const [error, setError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
 
@@ -18,11 +18,11 @@ export default function NumberInput(props) {
       helperText={errorMessage}
       onChange={(e) => {
         if (e.target.value.match(/^\d*(\.\d+)?$/gm)) {
-          setValue(e.target.value);
+          setvalue(e.target.value);
           setError(false);
           setErrorMessage("");
         } else {
-          setValue("");
+          setvalue("");
           setError(true);
           setErrorMessage("Please enter valid value");
         }

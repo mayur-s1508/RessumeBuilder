@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CheckboxInput(props) {
   const { label, value, setValue } = props;
   const classes = useStyles();
-  console.log(value);
+
   const handleChange = (event) => {
     setValue({ ...value, [event.target.name]: event.target.checked });
   };

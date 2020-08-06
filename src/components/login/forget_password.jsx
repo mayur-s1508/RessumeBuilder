@@ -62,11 +62,11 @@ export default function ForgetPassword(props) {
   return (
     <div>
       <Link
-        href="#"
         variant="body2"
         color="primary"
         onClick={handleClickOpen}
         className={inProgress ? classes.disabledLink : ""}
+        style={{ cursor: "pointer" }}
       >
         Forgot password?
       </Link>
@@ -84,7 +84,7 @@ export default function ForgetPassword(props) {
           <EmailInput setEmail={setEmail} variant="standard" margin="dense" />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="danger">
+          <Button onClick={handleClose} color="default">
             Cancel
           </Button>
           <Button

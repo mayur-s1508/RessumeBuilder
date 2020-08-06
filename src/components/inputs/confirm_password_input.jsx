@@ -19,13 +19,8 @@ export default function ConfirmPasswordInput(props) {
   const [value, setValue] = React.useState("");
   // when password change
   React.useEffect(() => {
-    console.log("test");
     if (value !== "" && !passswordError) {
-      console.log("test1");
-
       if (password !== value) {
-        console.log("test2");
-
         setPassswordError(true);
         setPassswordErrorMessage("Does not match with password!");
         setPassword("");
@@ -40,10 +35,10 @@ export default function ConfirmPasswordInput(props) {
       required
       fullWidth
       size={size ? size : "normal"}
-      name="password"
-      label="Password"
-      id="password"
-      autoComplete="current-password"
+      name="confirm-password"
+      label="Confirm Password"
+      id="confirm-password"
+      autoComplete="confirm-password"
       error={passswordError}
       helperText={passswordErrorMessage}
       value={value}

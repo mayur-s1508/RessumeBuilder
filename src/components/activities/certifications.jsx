@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
   cardActions: {
     display: "flex",
-    alignItems: "flex-end",
-    right: 0,
+    width: "100%",
+    justifyContent: "center",
   },
 }));
 function Certifications() {
@@ -41,7 +41,7 @@ function Certifications() {
   ];
 
   const validate = () => {
-    if (title && subtitle && info) return false;
+    if (title) return false;
     return true;
   };
 
@@ -85,7 +85,7 @@ function Certifications() {
 
   React.useEffect(() => {
     setPending(true);
-    console.log(1);
+
     firestore()
       .collection("users")
       .doc(user.uid)
@@ -110,18 +110,24 @@ function Certifications() {
           Certification Technical Skills &amp; Learning
         </Typography>
         <Grid container spacing={3}>
-          <Grid xs="12" item>
+          <Grid xs={12} item>
             <TextInput label="Title" setValue={setTitle} value={title} />
           </Grid>
-          <Grid xs="12" item>
+          <Grid xs={12} item>
             <TextInput
               label="Subtitle"
               setValue={setSubtitle}
               value={subtitle}
+              validateFalse={true}
             />
           </Grid>
-          <Grid xs="12" item>
-            <TextInput label="Info" setValue={setInfo} value={info} />
+          <Grid xs={12} item>
+            <TextInput
+              label="Info"
+              setValue={setInfo}
+              value={info}
+              validateFalse={true}
+            />
           </Grid>
 
           <CardActions className={classes.cardActions}>
@@ -137,6 +143,7 @@ function Certifications() {
         </Grid>
       </Paper>
       <MaterialTable
+        title=""
         columns={columns}
         data={data}
         style={{ margin: "32px 9px" }}

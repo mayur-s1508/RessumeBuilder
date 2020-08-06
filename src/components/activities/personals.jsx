@@ -7,7 +7,8 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
-import TextInput from "../inputs/text_input";
+import TextInputField from "../inputs/text_input";
+import DateInput from "../inputs/date_input";
 import EmailInput from "../inputs/email_input";
 import NumberInput from "../inputs/number_input";
 import SelectInput from "../inputs/select_input";
@@ -25,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
   },
   cardActions: {
     display: "flex",
-    alignItems: "flex-end",
-    right: 0,
+    width: "100%",
+    justifyContent: "center",
   },
 }));
 
@@ -115,7 +116,7 @@ function Personals() {
 
   React.useEffect(() => {
     setPending(true);
-    console.log(1);
+
     firestore()
       .collection("users")
       .doc(user.uid)
@@ -155,106 +156,118 @@ function Personals() {
         Personal Details
       </Typography>
       <Grid container spacing={3}>
-        <Grid xs="12" sm="6" md="4" item>
-          <TextInput label="First Name" setValue={setFName} value={fName} />
+        <Grid xs={12} sm={6} md={4} item>
+          <TextInputField
+            label="First Name"
+            setvalue={setFName}
+            value={fName}
+          />
         </Grid>
-        <Grid xs="12" sm="6" md="4" item>
-          <TextInput label="Middle Name" setValue={setMName} value={mName} />
+        <Grid xs={12} sm={6} md={4} item>
+          <TextInputField
+            label="Middle Name"
+            setvalue={setMName}
+            value={mName}
+          />
         </Grid>
-        <Grid xs="12" sm="6" md="4" item>
-          <TextInput label="Last Name" setValue={setLName} value={lName} />
+        <Grid xs={12} sm={6} md={4} item>
+          <TextInputField label="Last Name" setvalue={setLName} value={lName} />
         </Grid>
-        <Grid xs="12" sm="6" md="4" item>
+        <Grid xs={12} sm={6} md={4} item>
           <SelectInput
             label="Gender"
             options={["Male", "Female", "Other"]}
             getOptionLabel={(option) => option}
-            setValue={setGender}
+            setvalue={setGender}
             value={gender}
           />
         </Grid>
-        <Grid xs="12" sm="6" md="4" item>
+        <Grid xs={12} sm={6} md={4} item>
           <SelectInput
             label="Marital Status"
             options={["Married", "Unmarried"]}
             getOptionLabel={(option) => option}
-            setValue={setMaritalStatus}
+            setvalue={setMaritalStatus}
             value={maritalStatus}
           />
-          {/* <TextInput
+          {/* <TextInputField
             label="Marital Status"
-            setValue={setMaritalStatus}
+            setvalue={setMaritalStatus}
             value={maritalStatus}
           /> */}
         </Grid>
-        <Grid xs="12" sm="6" md="4" item>
-          <TextInput
+        <Grid xs={12} sm={6} md={4} item>
+          <TextInputField
             label="Nationality"
-            setValue={setNationality}
+            setvalue={setNationality}
             value={nationality}
           />
         </Grid>
-        <Grid xs="12" sm="6" md="6" item>
+        <Grid xs={12} sm={6} md={6} item>
           <EmailInput setEmail={setEmail} value={email} />
         </Grid>
-        <Grid xs="12" sm="6" md="6" item>
+        <Grid xs={12} sm={6} md={6} item>
           <NumberInput
             label="Contact No."
-            setValue={setContactNo}
+            setvalue={setContactNo}
             value={contactNo}
           />
         </Grid>
-        <Grid xs="12" sm="6" md="6" item>
-          <TextInput
+        <Grid xs={12} sm={6} md={6} item>
+          <DateInput
             label="Date of Birth"
-            setValue={setDob}
+            setvalue={setDob}
             type="date"
-            defaultValue="2000-01-01"
-            value={dob}
+            // defaultValue="2000-01-01"
+            value={dob ? dob : "2000-01-01"}
           />
         </Grid>
-        <Grid xs="12" sm="6" md="6" item>
-          <TextInput label="Languages known" setValue={setLang} value={lang} />
+        <Grid xs={12} sm={6} md={6} item>
+          <TextInputField
+            label="Languages known"
+            setvalue={setLang}
+            value={lang}
+          />
         </Grid>
-        <Grid xs="12" sm="6" md="6" item>
-          <TextInput
+        <Grid xs={12} sm={6} md={6} item>
+          <TextInputField
             label="Linkedin ID"
-            setValue={setLinkedinId}
+            setvalue={setLinkedinId}
             value={linkedinId}
           />
         </Grid>
-        <Grid xs="12" sm="6" md="6" item>
-          <TextInput
+        <Grid xs={12} sm={6} md={6} item>
+          <TextInputField
             label="District, State"
-            setValue={setAddShort}
+            setvalue={setAddShort}
             value={addShort}
           />
         </Grid>
-        <Grid xs="12" sm="6" md="6" item>
-          <TextInput
+        <Grid xs={12} sm={6} md={6} item>
+          <TextInputField
             label="Interests"
-            setValue={setInterest}
+            setvalue={setInterest}
             value={interest}
           />
         </Grid>
-        <Grid xs="12" sm="6" md="6" item>
-          <TextInput
+        <Grid xs={12} sm={6} md={6} item>
+          <TextInputField
             label="Reference"
-            setValue={setReference}
+            setvalue={setReference}
             value={reference}
           />
         </Grid>
-        <Grid xs="12" item>
-          <TextInput
+        <Grid xs={12} item>
+          <TextInputField
             label="Correspondence &amp; Permanent Address"
-            setValue={setAddress}
+            setvalue={setAddress}
             value={address}
           />
         </Grid>
-        <Grid xs="12" item>
-          <TextInput
+        <Grid xs={12} item>
+          <TextInputField
             label="Technical Skills"
-            setValue={setTeckSkills}
+            setvalue={setTeckSkills}
             multiline
             rows={4}
             value={techSkills}

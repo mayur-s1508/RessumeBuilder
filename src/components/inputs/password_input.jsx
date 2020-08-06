@@ -22,7 +22,7 @@ export default function PasswordInput(props) {
       margin="normal"
       required
       fullWidth
-      size={size ? size : "normal"}
+      size={size ? size : "medium"}
       name="password"
       label="Password"
       id="password"

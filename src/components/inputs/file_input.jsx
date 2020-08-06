@@ -8,14 +8,19 @@ function FileInput(props) {
 
   return (
     <div>
+      <span>File size must be lesser than 500KB.</span>
+
       <div>
         <input
           accept="image/*"
           style={{ display: "none" }}
           id="imageInput"
           onChange={(e) => {
-            setFileCount(e.target.files.length);
-            setFiles(e.target.files);
+            var filesize = (e.target.files[0].size / 1024 / 1024).toFixed(4);
+            if (filesize < 0.6) {
+              setFileCount(e.target.files.length);
+              setFiles(e.target.files);
+            }
           }}
           required={true}
           type="file"
@@ -25,6 +30,7 @@ function FileInput(props) {
             Upload Image
           </Button>
         </label>
+
         <span style={{ paddingLeft: "8px" }}>
           {fileCount === 0
             ? "No image selected"

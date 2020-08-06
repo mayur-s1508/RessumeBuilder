@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Grid,
-  Paper,
-  makeStyles,
-  CardActions,
-  Button,
-  Typography,
-} from "@material-ui/core";
-import MaterialTable from "material-table";
-import TextInput from "../inputs/text_input";
+import { Paper, makeStyles, Button, Typography } from "@material-ui/core";
 import UserContext from "../tools/user_info";
 import { firestore, storage } from "firebase";
 import CircularProgressIndicator from "../tools/circular_progress_indicator";
@@ -27,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
   },
   cardActions: {
     display: "flex",
-    alignItems: "flex-end",
-    right: 0,
+    width: "100%",
+    justifyContent: "center",
   },
 }));
 
@@ -49,7 +40,6 @@ function UploadPhoto(props) {
       .child("users/" + user.uid)
       .put(files[0], metadata)
       .then((r) => {
-        console.log(r);
         firestore()
           .collection("users")
           .doc(user.uid)
@@ -80,7 +70,6 @@ function UploadPhoto(props) {
       .get()
       .then((doc) => {
         if (doc.exists && doc.data().imagePath) {
-          console.log(doc.data().imagePath);
           setImagePath(doc.data().imagePath);
         }
         setPending(false);
@@ -90,6 +79,9 @@ function UploadPhoto(props) {
     <div>
       <CircularProgressIndicator display={pending} />
       <Paper className={classes.root}>
+        <Typography variant="h4" className={classes.heading}>
+          Profile Photo
+        </Typography>
         {imagePath ? (
           <div style={{ marginBottom: "24px" }}>
             <h2>Current Image</h2>
@@ -102,7 +94,7 @@ function UploadPhoto(props) {
         <Button
           variant="contained"
           color="primary"
-          size="normal"
+          size="medium"
           style={{ marginTop: "24px" }}
           disabled={files.length === 0}
           onClick={uploadPhoto}

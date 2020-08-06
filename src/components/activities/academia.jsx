@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
   cardActions: {
     display: "flex",
-    alignItems: "flex-end",
-    right: 0,
+    width: "100%",
+    justifyContent: "center",
   },
 }));
 function Academia() {
@@ -93,7 +93,7 @@ function Academia() {
 
   React.useEffect(() => {
     setPending(true);
-    console.log(1);
+
     firestore()
       .collection("users")
       .doc(user.uid)
@@ -118,27 +118,27 @@ function Academia() {
           Academia
         </Typography>
         <Grid container spacing={3}>
-          <Grid xs="12" item>
+          <Grid xs={12} item>
             <TextInput label="Examination" setValue={setExam} value={exam} />
           </Grid>
-          <Grid xs="12" item>
+          <Grid xs={12} item>
             <TextInput
               label="Institute/School"
               setValue={setInstitute}
               value={institute}
             />
           </Grid>
-          <Grid xs="12" item>
+          <Grid xs={12} item>
             <TextInput
               label="University/Board"
               setValue={setBoard}
               value={board}
             />
           </Grid>
-          <Grid xs="12" sm="6" md="6" item>
+          <Grid xs={12} sm={6} md={6} item>
             <TextInput label="Year of passing" setValue={setYop} value={yop} />
           </Grid>
-          <Grid xs="12" sm="6" md="6" item>
+          <Grid xs={12} sm={6} md={6} item>
             <TextInput label="% of Marks" setValue={setMark} value={mark} />
           </Grid>
 
@@ -155,7 +155,7 @@ function Academia() {
         </Grid>
       </Paper>
       <MaterialTable
-        title="Academics"
+        title=""
         columns={columns}
         data={data}
         style={{ margin: "32px 9px" }}

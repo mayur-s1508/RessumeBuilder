@@ -87,7 +87,6 @@ export default function SignIn({ history }) {
       auth().onAuthStateChanged((firebaseUser) => {
         if (firebaseUser) {
           history.push("/");
-          console.log(firebaseUser.uid);
         }
       });
     },
@@ -114,7 +113,7 @@ export default function SignIn({ history }) {
           </Typography>
 
           <form className={classes.form} onSubmit={loginUser}>
-            <EmailInput setEmail={setEmail} size="normal" />
+            <EmailInput setEmail={setEmail} size="medium" />
             <PasswordInput setPassword={setPassword} />
             <Button
               type="submit"
