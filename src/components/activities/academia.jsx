@@ -119,27 +119,27 @@ function Academia() {
         </Typography>
         <Grid container spacing={3}>
           <Grid xs={12} item>
-            <TextInput label="Examination" setValue={setExam} value={exam} />
+            <TextInput label="Examination" setvalue={setExam} value={exam} />
           </Grid>
           <Grid xs={12} item>
             <TextInput
               label="Institute/School"
-              setValue={setInstitute}
+              setvalue={setInstitute}
               value={institute}
             />
           </Grid>
           <Grid xs={12} item>
             <TextInput
               label="University/Board"
-              setValue={setBoard}
+              setvalue={setBoard}
               value={board}
             />
           </Grid>
           <Grid xs={12} sm={6} md={6} item>
-            <TextInput label="Year of passing" setValue={setYop} value={yop} />
+            <TextInput label="Year of passing" setvalue={setYop} value={yop} />
           </Grid>
           <Grid xs={12} sm={6} md={6} item>
-            <TextInput label="% of Marks" setValue={setMark} value={mark} />
+            <TextInput label="% of Marks" setvalue={setMark} value={mark} />
           </Grid>
 
           <CardActions className={classes.cardActions}>

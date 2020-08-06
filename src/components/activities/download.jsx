@@ -41,7 +41,7 @@ function Download() {
         }
         setPending(false);
       });
-  }, [user.uid, setData]);
+  }, [user.uid, setData, setMsg]);
   if (msg) return <h4>{msg}</h4>;
   if (pending) return <CircularProgressIndicator display={pending} />;
   const download = () => {

@@ -111,12 +111,12 @@ function Certifications() {
         </Typography>
         <Grid container spacing={3}>
           <Grid xs={12} item>
-            <TextInput label="Title" setValue={setTitle} value={title} />
+            <TextInput label="Title" setvalue={setTitle} value={title} />
           </Grid>
           <Grid xs={12} item>
             <TextInput
               label="Subtitle"
-              setValue={setSubtitle}
+              setvalue={setSubtitle}
               value={subtitle}
               validateFalse={true}
             />
@@ -124,7 +124,7 @@ function Certifications() {
           <Grid xs={12} item>
             <TextInput
               label="Info"
-              setValue={setInfo}
+              setvalue={setInfo}
               value={info}
               validateFalse={true}
             />
