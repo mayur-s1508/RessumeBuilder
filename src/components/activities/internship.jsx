@@ -28,24 +28,19 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
 }));
-function Academia() {
+function Internship() {
   const classes = useStyles();
-  const [exam, setExam] = React.useState("");
-  const [institute, setInstitute] = React.useState("");
-  const [board, setBoard] = React.useState("");
-  const [yop, setYop] = React.useState("");
-  const [mark, setMark] = React.useState("");
+  const [title, setTitle] = React.useState("");
+  const [subtitle, setSubtitle] = React.useState("");
+  const [info, setInfo] = React.useState("");
   const [data, setData] = React.useState([]);
   const columns = [
-    { title: "Examination", field: "exam" },
-    { title: "Institute/School", field: "institute" },
-    { title: "University/Board", field: "board" },
-    { title: "Year of passing", field: "yop" },
-    { title: "% of Marks", field: "mark" },
+    { title: "Title", field: "title" },
+    { title: "Subtitle", field: "subtitle" },
+    { title: "Info", field: "info" },
   ];
-
   const validate = () => {
-    if (exam && institute && board && yop && mark) return false;
+    if (title) return false;
     return true;
   };
 
@@ -53,19 +48,15 @@ function Academia() {
     setData(
       data.concat([
         {
-          exam: exam,
-          institute: institute,
-          board: board,
-          yop: yop,
-          mark: mark,
+          title: title,
+          subtitle: subtitle,
+          info: info,
         },
       ])
     );
-    setExam("");
-    setInstitute("");
-    setBoard("");
-    setYop("");
-    setMark("");
+    setTitle("");
+    setSubtitle("");
+    setInfo("");
   };
 
   const user = React.useContext(UserContext);
@@ -77,7 +68,7 @@ function Academia() {
       .doc(user.uid)
       .set(
         {
-          academia: data,
+          internship: data,
         },
         { merge: true }
       )
@@ -99,8 +90,8 @@ function Academia() {
       .doc(user.uid)
       .get()
       .then((doc) => {
-        if (doc.exists && doc.data().academia !== undefined) {
-          setData(doc.data().academia);
+        if (doc.exists && doc.data().internship !== undefined) {
+          setData(doc.data().internship);
         }
         setPending(false);
       })
@@ -115,31 +106,27 @@ function Academia() {
       <CircularProgressIndicator display={pending} />
       <Paper className={classes.root}>
         <Typography variant="h4" className={classes.heading}>
-          Academia
+          Internship Details
         </Typography>
         <Grid container spacing={3}>
           <Grid xs={12} item>
-            <TextInput label="Examination" setvalue={setExam} value={exam} />
+            <TextInput label="Title" setvalue={setTitle} value={title} />
           </Grid>
           <Grid xs={12} item>
             <TextInput
-              label="Institute/School"
-              setvalue={setInstitute}
-              value={institute}
+              label="Subtitle"
+              setvalue={setSubtitle}
+              value={subtitle}
+              validateFalse={true}
             />
           </Grid>
           <Grid xs={12} item>
             <TextInput
-              label="University/Board"
-              setvalue={setBoard}
-              value={board}
+              label="Info"
+              setvalue={setInfo}
+              value={info}
+              validateFalse={true}
             />
-          </Grid>
-          <Grid xs={12} sm={6} md={6} item>
-            <TextInput label="Year of passing" setvalue={setYop} value={yop} />
-          </Grid>
-          <Grid xs={12} sm={6} md={6} item>
-            <TextInput label="% of Marks" setvalue={setMark} value={mark} />
           </Grid>
 
           <CardActions className={classes.cardActions}>
@@ -188,7 +175,7 @@ function Academia() {
         <Button
           variant="contained"
           color="primary"
-          disabled={data.length === 0}
+          // disabled={data.length === 0}
           onClick={save}
         >
           Save
@@ -198,4 +185,4 @@ function Academia() {
   );
 }
 
-export default Academia;
+export default Internship;

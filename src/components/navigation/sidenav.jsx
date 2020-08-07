@@ -68,6 +68,16 @@ const navList = [
     link: "/certifications",
   },
   {
+    title: "Internship",
+    icon: <Icon>assignment</Icon>,
+    link: "/internship",
+  },
+  {
+    title: "Position of Responsibility",
+    icon: <Icon>stars</Icon>,
+    link: "/position-of-responsibility",
+  },
+  {
     title: "Activities",
     icon: <Icon>local_activity</Icon>,
     link: "/activities",

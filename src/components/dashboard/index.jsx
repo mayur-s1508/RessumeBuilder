@@ -10,6 +10,8 @@ import Personals from "../activities/personals";
 import Academia from "../activities/academia";
 import Projects from "../activities/projects";
 import Certifications from "../activities/certifications";
+import Internship from "../activities/internship";
+import Por from "../activities/por";
 import Activities from "../activities/activities";
 import Download from "../activities/download";
 import PageNotFound from "../tools/not_found";
@@ -77,6 +79,8 @@ function ResponsiveDrawer(props) {
           <Route path="/academia" component={Academia} />
           <Route path="/projects" component={Projects} />
           <Route path="/certifications" component={Certifications} />
+          <Route path="/internship" component={Internship} />
+          <Route path="/position-of-responsibility" component={Por} />
           <Route path="/activities" component={Activities} />
           <Route path="/upload-photo" component={UploadPhoto} />
           <Route path="/download" component={Download} />

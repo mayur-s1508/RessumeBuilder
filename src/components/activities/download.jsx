@@ -33,6 +33,7 @@ function Download() {
   const [data, setData] = React.useState(null);
   const [msg, setMsg] = React.useState("");
   const [pending, setPending] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(false);
   const user = React.useContext(UserContext);
   React.useEffect(() => {
     setPending(true);
@@ -65,12 +66,14 @@ function Download() {
   if (msg !== "") return <h4>{msg}</h4>;
   if (pending) return <CircularProgressIndicator display={pending} />;
   const download = () => {
+    setDisabled(true);
     let imagenes = document.getElementsByTagName("img");
     for (let i = 0; i < imagenes.length; i++) {
       imagenes[i].setAttribute("crossorigin", "*");
     }
     var element = document.getElementById("idd");
     var opt = {
+      margin: 4,
       filename: "resume.pdf",
       html2canvas: {
         dpi: 192,
@@ -78,9 +81,11 @@ function Download() {
         useCORS: true,
         scale: 4,
       },
-      jsPDF: { unit: "mm" },
+      jsPDF: { unit: "mm", format: "a4" },
     };
-    html2pdf(element, opt);
+    html2pdf(element, opt).then(() => {
+      setDisabled(false);
+    });
   };
   return (
     <div>
@@ -101,6 +106,7 @@ function Download() {
           style={{ margin: "auto" }}
           startIcon={<CloudDownloadIcon />}
           onClick={download}
+          disabled={disabled}
         >
           Download
         </Button>
@@ -188,7 +194,9 @@ function Download() {
               </tbody>
             </table>
             <hr className="hr-line" />
-            {data && data.projects !== undefined ? (
+            {data &&
+            data.projects !== undefined &&
+            data.projects.length !== 0 ? (
               <>
                 <h4 className="title1">PROJECT DETAILS</h4>
                 <div>
@@ -200,8 +208,8 @@ function Download() {
                           .map((e, index) => (
                             <li key={index}>
                               <b>{e.title}</b>
-                              {e.subtitle ? " - " + e.subtitle : ""}
-                              {e.info ? " - " + e.info : ""}
+                              {e.subtitle ? " – " + e.subtitle : ""}
+                              {e.info ? " – " + e.info : ""}
                             </li>
                           ))
                       : ""}
@@ -212,7 +220,9 @@ function Download() {
             ) : (
               ""
             )}
-            {data && data.certifications !== undefined ? (
+            {data &&
+            data.certifications !== undefined &&
+            data.certifications.length !== 0 ? (
               <>
                 <h4 className="title1">
                   CERTIFICATION, TECHNICAL SKILLS &amp; LEARNING
@@ -226,8 +236,8 @@ function Download() {
                           .map((e, index) => (
                             <li key={index}>
                               <b>{e.title}</b>
-                              {e.subtitle ? " - " + e.subtitle : ""}
-                              {e.info ? " - " + e.info : ""}
+                              {e.subtitle ? " – " + e.subtitle : ""}
+                              {e.info ? " – " + e.info : ""}
                             </li>
                           ))
                       : ""}
@@ -242,7 +252,59 @@ function Download() {
             ) : (
               ""
             )}
-            {data && data.activities !== undefined ? (
+            {data &&
+            data.internship !== undefined &&
+            data.internship.length !== 0 ? (
+              <>
+                <h4 className="title1">INTERNSHIP</h4>
+                <div>
+                  <ul>
+                    {data
+                      ? data.internship
+                          .slice()
+                          .reverse()
+                          .map((e, index) => (
+                            <li key={index}>
+                              <b>{e.title}</b>
+                              {e.subtitle ? " – " + e.subtitle : ""}
+                              {e.info ? " – " + e.info : ""}
+                            </li>
+                          ))
+                      : ""}
+                  </ul>
+                </div>
+                <hr className="hr-line" />{" "}
+              </>
+            ) : (
+              ""
+            )}
+            {data && data.por !== undefined && data.por.length !== 0 ? (
+              <>
+                <h4 className="title1">POSITIONS OF RESPONSIBILITY</h4>
+                <div>
+                  <ul>
+                    {data
+                      ? data.por
+                          .slice()
+                          .reverse()
+                          .map((e, index) => (
+                            <li key={index}>
+                              <b>{e.title}</b>
+                              {e.subtitle ? " – " + e.subtitle : ""}
+                              {e.info ? " – " + e.info : ""}
+                            </li>
+                          ))
+                      : ""}
+                  </ul>
+                </div>
+                <hr className="hr-line" />{" "}
+              </>
+            ) : (
+              ""
+            )}
+            {data &&
+            data.activities !== undefined &&
+            data.activities.length !== 0 ? (
               <>
                 <h4 className="title1">
                   PARTICIPATED ACTIVITIES &amp; ACHIEVEMENTS
@@ -256,8 +318,8 @@ function Download() {
                           .map((e, index) => (
                             <li key={index}>
                               <b>{e.title}</b>
-                              {e.subtitle ? " - " + e.subtitle : ""}
-                              {e.info ? " - " + e.info : ""}
+                              {e.subtitle ? " – " + e.subtitle : ""}
+                              {e.info ? " – " + e.info : ""}
                             </li>
                           ))
                       : ""}
@@ -268,6 +330,14 @@ function Download() {
             ) : (
               ""
             )}
+            <hr
+              className="html2pdf__page-break"
+              style={{
+                display: "block",
+                marginTop: "0px",
+                color: "transparent",
+              }}
+            />
             <h4 className="title1">PERSONAL INFORMATION</h4>
             <table className="table1">
               <tbody>
@@ -282,7 +352,7 @@ function Download() {
                     <b>DOB &amp; Gender:</b>{" "}
                     {data
                       ? formatDate(data.personalInfo.dob) +
-                        " - " +
+                        " – " +
                         data.personalInfo.gender
                       : ""}
                   </td>

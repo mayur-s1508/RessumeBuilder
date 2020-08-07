@@ -147,6 +147,17 @@ function Projects() {
         data={data}
         style={{ margin: "32px 9px" }}
         editable={{
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                const dataUpdate = [...data];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData;
+                setData([...dataUpdate]);
+
+                resolve();
+              }, 1000);
+            }),
           onRowDelete: (oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(() => {
@@ -164,7 +175,7 @@ function Projects() {
         <Button
           variant="contained"
           color="primary"
-          disabled={data.length === 0}
+          // disabled={data.length === 0}
           onClick={save}
         >
           Save

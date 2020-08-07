@@ -25,11 +25,24 @@
   font-size: 16px;
   text-align: center !important;
 }
-.table1,
-.download th,
-.download td,
-.download tr {
+.table1 {
   border: 1px solid #000;
+  border-collapse: collapse;
+}
+.download th,
+.download td {
+  border-left: 1px solid #000;
+  border-collapse: collapse;
+}
+
+.download tr {
+  border-top: 1px solid #000;
+  border-collapse: collapse;
+}
+.download th:nth-child(1),
+.download td:nth-child(1),
+.download tr:nth-child(1) {
+  border: none;
   border-collapse: collapse;
 }
 .table1 td {
