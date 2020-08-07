@@ -30,7 +30,7 @@ export default function EmailInput(props) {
         ) {
           setEmailError(true);
           setEmailErrorMessage("Invalid Email Address!!");
-          setEmail("");
+          setEmail(e.target.value);
         } else {
           setEmailError(false);
           setEmailErrorMessage("");

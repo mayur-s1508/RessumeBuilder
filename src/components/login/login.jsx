@@ -120,8 +120,11 @@ export default function SignIn({ history }) {
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
+              className={classes.submit + " g-recaptcha"}
               disabled={isLoginProgress}
+              // className="g-recaptcha"
+              data-sitekey="6LeeKrsZAAAAANIWKQo8XWOu-0ETUBgxN43KJdvw"
+              data-callback="onSubmit"
             >
               Sign In
             </Button>

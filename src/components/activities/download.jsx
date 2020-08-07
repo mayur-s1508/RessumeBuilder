@@ -10,6 +10,25 @@ import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import html2pdf from "html2pdf.js";
 import NetworkImage from "../tools/network_img";
 
+function formatDate(date) {
+  const d = new Date(date);
+  var months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  return d.getDate() + " " + months[d.getMonth()] + " " + d.getFullYear();
+}
+
 function Download() {
   const [data, setData] = React.useState(null);
   const [msg, setMsg] = React.useState("");
@@ -25,24 +44,25 @@ function Download() {
         if (doc.exists) {
           const docData = doc.data();
           setData(docData);
-          if (docData.personalInfo === undefined)
+          if (docData.personalInfo === undefined) {
             setMsg("Please complete personal info details!");
-          else if (docData.academia === undefined)
+          } else if (docData.academia === undefined)
             setMsg("Please complete academia details!");
-          else if (docData.projects === undefined)
-            setMsg("Please complete projects details!");
-          else if (docData.certifications === undefined)
-            setMsg("Please complete certifications details!");
-          else if (docData.activities === undefined)
-            setMsg("Please complete activities details!");
-          else if (docData.imagePath === undefined)
-            setMsg("Please upload your photo!");
+          // else if (docData.projects === undefined)
+          //   setMsg("Please complete projects details!");
+          // else if (docData.certifications === undefined)
+          //   setMsg("Please complete certifications details!");
+          // else if (docData.activities === undefined)
+          //   setMsg("Please complete activities details!");
+          // else if (docData.imagePath === undefined)
+          //   setMsg("Please upload your photo!");
         } else {
+          setMsg("Please complete personal info details!");
         }
         setPending(false);
       });
   }, [user.uid, setData, setMsg]);
-  if (msg) return <h4>{msg}</h4>;
+  if (msg !== "") return <h4>{msg}</h4>;
   if (pending) return <CircularProgressIndicator display={pending} />;
   const download = () => {
     let imagenes = document.getElementsByTagName("img");
@@ -89,7 +109,11 @@ function Download() {
         <Paper className="download-body">
           <img src={logo} alt="CSMSS" className="logo" />
           {/* <img id="profile" alt="Profile" className="photo" /> */}
-          {data ? <NetworkImage path={data.imagePath} className="photo" /> : ""}
+          {data && data.imagePath ? (
+            <NetworkImage path={data.imagePath} className="photo" />
+          ) : (
+            ""
+          )}
           <h2 className="name">
             <u>
               {data
@@ -164,68 +188,86 @@ function Download() {
               </tbody>
             </table>
             <hr className="hr-line" />
-            <h4 className="title1">PROJECT DETAILS</h4>
-            <div>
-              <ul>
-                {data
-                  ? data.projects
-                      .slice()
-                      .reverse()
-                      .map((e, index) => (
-                        <li key={index}>
-                          <b>{e.title}</b>
-                          {e.subtitle ? " - " + e.subtitle : ""}
-                          {e.info ? " - " + e.info : ""}
-                        </li>
-                      ))
-                  : ""}
-              </ul>
-            </div>
-            <hr className="hr-line" />
-            <h4 className="title1">
-              CERTIFICATION, TECHNICAL SKILLS &amp; LEARNING
-            </h4>
-            <div>
-              <ul>
-                {data
-                  ? data.certifications
-                      .slice()
-                      .reverse()
-                      .map((e, index) => (
-                        <li key={index}>
-                          <b>{e.title}</b>
-                          {e.subtitle ? " - " + e.subtitle : ""}
-                          {e.info ? " - " + e.info : ""}
-                        </li>
-                      ))
-                  : ""}
-              </ul>
-              <p className="teck-skills">
-                <b>&nbsp; Technical Skills:</b>{" "}
-                {data ? data.personalInfo.techSkills : ""}
-              </p>
-            </div>
-            <hr className="hr-line" />
-            <h4 className="title1">
-              PARTICIPATED ACTIVITIES &amp; ACHIEVEMENTS
-            </h4>
-            <div>
-              <ul>
-                {data
-                  ? data.activities
-                      .slice()
-                      .reverse()
-                      .map((e, index) => (
-                        <li key={index}>
-                          <b>{e.title}</b>
-                          {e.subtitle ? " - " + e.subtitle : ""}
-                          {e.info ? " - " + e.info : ""}
-                        </li>
-                      ))
-                  : ""}
-              </ul>
-            </div>
-            <hr className="hr-line" />
+            {data && data.projects !== undefined ? (
+              <>
+                <h4 className="title1">PROJECT DETAILS</h4>
+                <div>
+                  <ul>
+                    {data
+                      ? data.projects
+                          .slice()
+                          .reverse()
+                          .map((e, index) => (
+                            <li key={index}>
+                              <b>{e.title}</b>
+                              {e.subtitle ? " - " + e.subtitle : ""}
+                              {e.info ? " - " + e.info : ""}
+                            </li>
+                          ))
+                      : ""}
+                  </ul>
+                </div>
+                <hr className="hr-line" />
+              </>
+            ) : (
+              ""
+            )}
+            {data && data.certifications !== undefined ? (
+              <>
+                <h4 className="title1">
+                  CERTIFICATION, TECHNICAL SKILLS &amp; LEARNING
+                </h4>
+                <div>
+                  <ul>
+                    {data
+                      ? data.certifications
+                          .slice()
+                          .reverse()
+                          .map((e, index) => (
+                            <li key={index}>
+                              <b>{e.title}</b>
+                              {e.subtitle ? " - " + e.subtitle : ""}
+                              {e.info ? " - " + e.info : ""}
+                            </li>
+                          ))
+                      : ""}
+                  </ul>
+                  <p className="teck-skills">
+                    <b>&nbsp; Technical Skills:</b>{" "}
+                    {data ? data.personalInfo.techSkills : ""}
+                  </p>
+                </div>
+                <hr className="hr-line" />{" "}
+              </>
+            ) : (
+              ""
+            )}
+            {data && data.activities !== undefined ? (
+              <>
+                <h4 className="title1">
+                  PARTICIPATED ACTIVITIES &amp; ACHIEVEMENTS
+                </h4>
+                <div>
+                  <ul>
+                    {data
+                      ? data.activities
+                          .slice()
+                          .reverse()
+                          .map((e, index) => (
+                            <li key={index}>
+                              <b>{e.title}</b>
+                              {e.subtitle ? " - " + e.subtitle : ""}
+                              {e.info ? " - " + e.info : ""}
+                            </li>
+                          ))
+                      : ""}
+                  </ul>
+                </div>
+                <hr className="hr-line" />{" "}
+              </>
+            ) : (
+              ""
+            )}
             <h4 className="title1">PERSONAL INFORMATION</h4>
             <table className="table1">
               <tbody>
@@ -238,7 +280,11 @@ function Download() {
                 <tr>
                   <td>
                     <b>DOB &amp; Gender:</b>{" "}
-                    {data ? data.personalInfo.gender : ""}
+                    {data
+                      ? formatDate(data.personalInfo.dob) +
+                        " - " +
+                        data.personalInfo.gender
+                      : ""}
                   </td>
                   <td>
                     <b>Marital Status:</b>{" "}
