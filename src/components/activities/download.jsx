@@ -10,6 +10,9 @@ import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import html2pdf from "html2pdf.js";
 import NetworkImage from "../tools/network_img";
 
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+
 function formatDate(date) {
   const d = new Date(date);
   var months = [
@@ -35,6 +38,10 @@ function Download() {
   const [pending, setPending] = React.useState(false);
   const [disabled, setDisabled] = React.useState(false);
   const user = React.useContext(UserContext);
+
+  const [profilePicture, setProfilePicture] = React.useState(true);
+  const [clgLogo, setClgLogo] = React.useState(true);
+
   React.useEffect(() => {
     setPending(true);
     firestore()
@@ -63,8 +70,10 @@ function Download() {
         setPending(false);
       });
   }, [user.uid, setData, setMsg]);
+
   if (msg !== "") return <h4>{msg}</h4>;
   if (pending) return <CircularProgressIndicator display={pending} />;
+
   const download = () => {
     setDisabled(true);
     let imagenes = document.getElementsByTagName("img");
@@ -87,8 +96,29 @@ function Download() {
       setDisabled(false);
     });
   };
+
   return (
     <div>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={clgLogo}
+            onChange={(e) => setClgLogo(!clgLogo)}
+            color="primary"
+          />
+        }
+        label="College Logo"
+      />
+      <FormControlLabel
+        control={
+          <Switch
+            checked={profilePicture}
+            onChange={(e) => setProfilePicture(!profilePicture)}
+            color="primary"
+          />
+        }
+        label="Profile Image"
+      />
       <div
         className="text-center w-100 mr-auto justify-content-center"
         style={{
@@ -113,10 +143,19 @@ function Download() {
       </div>
       <div className="download" id="idd">
         <Paper className="download-body">
-          <img src={logo} alt="CSMSS" className="logo" />
+          <img
+            src={logo}
+            alt="CSMSS"
+            className="logo"
+            style={{ display: clgLogo ? "inherit" : "none" }}
+          />
           {/* <img id="profile" alt="Profile" className="photo" /> */}
           {data && data.imagePath ? (
-            <NetworkImage path={data.imagePath} className="photo" />
+            <NetworkImage
+              path={data.imagePath}
+              className="photo"
+              style={{ display: profilePicture ? "inherit" : "none" }}
+            />
           ) : (
             ""
           )}
@@ -331,7 +370,7 @@ function Download() {
               ""
             )}
             <hr
-              className="html2pdf__page-break"
+              // className="html2pdf__page-break"
               style={{
                 display: "block",
                 marginTop: "0px",

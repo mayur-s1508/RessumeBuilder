@@ -14,7 +14,7 @@ function Copyright() {
         Resume Buddy {new Date().getFullYear()}
         {"."}
       </Typography>
-      <Typography
+      {/* <Typography
         variant="body2"
         color="textSecondary"
         align="center"
@@ -24,7 +24,7 @@ function Copyright() {
         <Link href="https://teckytrick.com/" color="inherit">
           Teckytrick
         </Link>
-      </Typography>
+      </Typography> */}
     </>
   );
 }
