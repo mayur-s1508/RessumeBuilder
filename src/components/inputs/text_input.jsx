@@ -3,13 +3,21 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 
 export default function TextInput(props) {
-  const { setvalue, label, size, margin, value, validateFalse } = props;
+  const {
+    setvalue,
+    label,
+    size,
+    margin,
+    value,
+    validateFalse,
+    optional,
+  } = props;
   const [error, setError] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
 
   return (
     <TextField
-      required
+      required={optional ? false : true}
       variant="outlined"
       value={value}
       margin={margin ? margin : "dense"}

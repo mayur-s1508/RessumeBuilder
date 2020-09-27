@@ -3,10 +3,10 @@ import { Route, Redirect } from "react-router-dom";
 import { auth } from "firebase";
 import CircularProgressIndicator from "./circular_progress_indicator";
 import UserContext from "./user_info";
+
 const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
   const [pending, setPending] = useState(true);
   const [user, setUser] = useState(null);
-  // const ThemeContext = React.createContext(null);
 
   useEffect(() => {
     auth().onAuthStateChanged((firebaseUser) => {

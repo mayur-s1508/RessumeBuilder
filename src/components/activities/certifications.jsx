@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
 }));
+
 function Certifications() {
   const classes = useStyles();
   const [title, setTitle] = React.useState("");
@@ -115,6 +116,7 @@ function Certifications() {
           </Grid>
           <Grid xs={12} item>
             <TextInput
+              optional="true"
               label="Subtitle"
               setvalue={setSubtitle}
               value={subtitle}
@@ -123,6 +125,7 @@ function Certifications() {
           </Grid>
           <Grid xs={12} item>
             <TextInput
+              optional="true"
               label="Info"
               setvalue={setInfo}
               value={info}
@@ -173,12 +176,7 @@ function Certifications() {
         }}
       />
       <CardActions className={classes.cardActions}>
-        <Button
-          variant="contained"
-          color="primary"
-          // disabled={data.length === 0}
-          onClick={save}
-        >
+        <Button variant="contained" color="primary" onClick={save}>
           Save
         </Button>
       </CardActions>

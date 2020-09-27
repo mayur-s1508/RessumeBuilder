@@ -1,90 +1,56 @@
 import React from "react";
-import {
-  Grid,
-  Paper,
-  makeStyles,
-  CardActions,
-  Button,
-  Typography,
-} from "@material-ui/core";
+
 import MaterialTable from "material-table";
-import TextInput from "../inputs/text_input";
 import UserContext from "../tools/user_info";
 import { firestore } from "firebase";
 import CircularProgressIndicator from "../tools/circular_progress_indicator";
+import BaseForm from "../tools/base_form";
+import { useSnackbar } from "notistack";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: theme.spacing(4),
-    margin: theme.spacing(1),
-  },
-  heading: {
-    textAlign: "center",
-    marginBottom: theme.spacing(4),
-  },
-  cardActions: {
-    display: "flex",
-    width: "100%",
-    justifyContent: "center",
-  },
-}));
-function Projects() {
-  const classes = useStyles();
-  const [title, setTitle] = React.useState("");
-  const [subtitle, setSubtitle] = React.useState("");
-  const [info, setInfo] = React.useState("");
+export default function Projects() {
   const [data, setData] = React.useState([]);
+  const { enqueueSnackbar } = useSnackbar();
+
   const columns = [
     { title: "Title", field: "title" },
     { title: "Subtitle", field: "subtitle" },
     { title: "Info", field: "info" },
   ];
-  const validate = () => {
-    if (title) return false;
-    return true;
-  };
-
-  const addAcademic = () => {
-    setData(
-      data.concat([
-        {
-          title: title,
-          subtitle: subtitle,
-          info: info,
-        },
-      ])
-    );
-    setTitle("");
-    setSubtitle("");
-    setInfo("");
-  };
 
   const user = React.useContext(UserContext);
   const [pending, setPending] = React.useState(false);
-  const save = () => {
-    setPending(true);
+
+  const save = (showProgress, newData, callback = () => {}) => {
+    if (showProgress) setPending(true);
     firestore()
       .collection("users")
       .doc(user.uid)
       .set(
         {
-          projects: data,
+          projects: newData.map((d) => ({ ...d, tableData: null })),
         },
         { merge: true }
       )
       .then(() => {
-        setPending(false);
-        alert("Data saved successfully");
+        if (showProgress) setPending(false);
+        setData(newData);
+        callback();
+        enqueueSnackbar("Successfully saved data!", {
+          variant: "success",
+        });
       })
       .catch((e) => {
-        setPending(false);
+        if (showProgress) setPending(false);
         alert(e.message);
+        callback();
+        enqueueSnackbar("Failed to save data!", {
+          variant: "error",
+        });
       });
   };
 
   React.useEffect(() => {
     setPending(true);
-
     firestore()
       .collection("users")
       .doc(user.uid)
@@ -96,51 +62,17 @@ function Projects() {
         setPending(false);
       })
       .catch((e) => {
-        console.log(e);
         setPending(false);
+        enqueueSnackbar("Failed to fetch data!", {
+          variant: "error",
+        });
       });
-  }, [user.uid]);
+  }, [enqueueSnackbar, user.uid]);
 
   return (
     <div>
       <CircularProgressIndicator display={pending} />
-      <Paper className={classes.root}>
-        <Typography variant="h4" className={classes.heading}>
-          Project Details
-        </Typography>
-        <Grid container spacing={3}>
-          <Grid xs={12} item>
-            <TextInput label="Title" setvalue={setTitle} value={title} />
-          </Grid>
-          <Grid xs={12} item>
-            <TextInput
-              label="Subtitle"
-              setvalue={setSubtitle}
-              value={subtitle}
-              validateFalse={true}
-            />
-          </Grid>
-          <Grid xs={12} item>
-            <TextInput
-              label="Info"
-              setvalue={setInfo}
-              value={info}
-              validateFalse={true}
-            />
-          </Grid>
-
-          <CardActions className={classes.cardActions}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={addAcademic}
-              disabled={validate()}
-            >
-              Add
-            </Button>
-          </CardActions>
-        </Grid>
-      </Paper>
+      <BaseForm data={data} save={save} />
       <MaterialTable
         title=""
         columns={columns}
@@ -153,9 +85,7 @@ function Projects() {
                 const dataUpdate = [...data];
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
-                setData([...dataUpdate]);
-
-                resolve();
+                save(false, [...dataUpdate], resolve);
               }, 1000);
             }),
           onRowDelete: (oldData) =>
@@ -164,25 +94,11 @@ function Projects() {
                 const dataDelete = [...data];
                 const index = oldData.tableData.id;
                 dataDelete.splice(index, 1);
-                setData([...dataDelete]);
-
-                resolve();
+                save(false, [...dataDelete], resolve);
               }, 1000);
             }),
         }}
       />
-      <CardActions className={classes.cardActions}>
-        <Button
-          variant="contained"
-          color="primary"
-          // disabled={data.length === 0}
-          onClick={save}
-        >
-          Save
-        </Button>
-      </CardActions>
     </div>
   );
 }
-
-export default Projects;

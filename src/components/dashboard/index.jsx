@@ -16,8 +16,9 @@ import Activities from "../activities/activities";
 import Download from "../activities/download";
 import PageNotFound from "../tools/not_found";
 import UploadPhoto from "../activities/upload_photo";
-import Instructions from "../tools/instructions";
+// import Instructions from "../tools/instructions";
 import Copyright from "../tools/copyright";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -71,7 +72,7 @@ function ResponsiveDrawer(props) {
         handleDrawerToggle={handleDrawerToggle}
         window={window}
       />
-      <Instructions />
+      {/* <Instructions /> */}
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Switch>
