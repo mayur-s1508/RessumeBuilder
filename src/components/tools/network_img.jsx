@@ -5,7 +5,7 @@ import ProgressIndicator from "./circular_progress_indicator";
 export default function NetworkImg(props) {
   const [src, setSrc] = React.useState("");
   const [loading, setLoading] = React.useState(true);
-  const { path, maxWidth, maxHeight } = props;
+  const { path, maxWidth, maxHeight, alt } = props;
 
   const storageRef = app().storage().ref();
 
@@ -29,7 +29,7 @@ export default function NetworkImg(props) {
   return (
     <img
       src={src}
-      alt="catalog"
+      alt={alt}
       style={{
         maxWidth: maxWidth ? maxWidth : "70px",
         maxHeight: maxHeight ? maxHeight : "60px",

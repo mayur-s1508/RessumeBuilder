@@ -1,17 +1,18 @@
 import React from "react";
+import "./download.css";
+import html2pdf from "html2pdf.js";
+import { firestore } from "firebase";
 
 import { Paper, Grid, Button, Link } from "@material-ui/core";
-import logo from "../../images/logo.jpg";
-import "./download.css";
-import CircularProgressIndicator from "../tools/circular_progress_indicator";
-import { firestore } from "firebase";
-import UserContext from "../tools/user_info";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
-import html2pdf from "html2pdf.js";
-import NetworkImage from "../tools/network_img";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import SettingsApplications from "@material-ui/icons/Settings";
 
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
+import logo from "../../images/logo.jpg";
+import CircularProgressIndicator from "../tools/circular_progress_indicator";
+import NetworkImage from "../tools/network_img";
+import UserContext from "../tools/user_info";
+import DownloadSettings from "../tools/download_settings";
 
 function formatDate(date) {
   const d = new Date(date);
@@ -41,6 +42,12 @@ function Download() {
 
   const [profilePicture, setProfilePicture] = React.useState(true);
   const [clgLogo, setClgLogo] = React.useState(true);
+  const [pageBreak, setPageBreak] = React.useState(0);
+
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   React.useEffect(() => {
     setPending(true);
@@ -82,11 +89,10 @@ function Download() {
     }
     var element = document.getElementById("idd");
     var opt = {
-      margin: 4,
+      margin: 0,
       filename: "resume.pdf",
       html2canvas: {
-        dpi: 192,
-        letterRendering: true,
+        // letterRendering: true,
         useCORS: true,
         scale: 4,
       },
@@ -99,25 +105,15 @@ function Download() {
 
   return (
     <div>
-      <FormControlLabel
-        control={
-          <Switch
-            checked={clgLogo}
-            onChange={(e) => setClgLogo(!clgLogo)}
-            color="primary"
-          />
-        }
-        label="College Logo"
-      />
-      <FormControlLabel
-        control={
-          <Switch
-            checked={profilePicture}
-            onChange={(e) => setProfilePicture(!profilePicture)}
-            color="primary"
-          />
-        }
-        label="Profile Image"
+      <DownloadSettings
+        open={open}
+        setOpen={setOpen}
+        clgLogo={clgLogo}
+        setClgLogo={setClgLogo}
+        profilePicture={profilePicture}
+        setProfilePicture={setProfilePicture}
+        pageBreak={pageBreak}
+        setPageBreak={setPageBreak}
       />
       <div
         className="text-center w-100 mr-auto justify-content-center"
@@ -129,17 +125,26 @@ function Download() {
           justifyContent: "center",
         }}
       >
-        <Button
+        <ButtonGroup
           variant="contained"
-          size="large"
           color="primary"
-          style={{ margin: "auto" }}
-          startIcon={<CloudDownloadIcon />}
-          onClick={download}
-          disabled={disabled}
+          aria-label="split button"
         >
-          Download
-        </Button>
+          <Button
+            variant="contained"
+            size="large"
+            color="primary"
+            style={{ margin: "auto" }}
+            startIcon={<CloudDownloadIcon />}
+            onClick={download}
+            disabled={disabled}
+          >
+            Download
+          </Button>
+          <Button onClick={handleClickOpen}>
+            <SettingsApplications />
+          </Button>
+        </ButtonGroup>
       </div>
       <div className="download" id="idd">
         <Paper className="download-body">
@@ -149,12 +154,12 @@ function Download() {
             className="logo"
             style={{ display: clgLogo ? "inherit" : "none" }}
           />
-          {/* <img id="profile" alt="Profile" className="photo" /> */}
           {data && data.imagePath ? (
             <NetworkImage
               path={data.imagePath}
               className="photo"
               style={{ display: profilePicture ? "inherit" : "none" }}
+              alt="Profile Image"
             />
           ) : (
             ""
@@ -179,7 +184,7 @@ function Download() {
                 </Link>
               </span>
             </Grid>
-            <Grid xs={4} item>
+            <Grid xs={4} item style={{ marginLeft: "-24px" }}>
               <span>
                 <b>Contact No.: </b>+91{" "}
                 {data ? data.personalInfo.contactNo : ""}
@@ -193,7 +198,7 @@ function Download() {
                 </Link>
               </span>
             </Grid>
-            <Grid xs={4} item>
+            <Grid xs={4} item style={{ marginLeft: "-24px" }}>
               <span>
                 <b>Address: </b>
                 {data ? data.personalInfo.addShort : ""}
@@ -255,6 +260,14 @@ function Download() {
                   </ul>
                 </div>
                 <hr className="hr-line" />
+                <hr
+                  className={pageBreak === 1 ? "html2pdf__page-break" : ""}
+                  style={{
+                    display: "block",
+                    marginTop: "0px",
+                    color: "transparent",
+                  }}
+                />
               </>
             ) : (
               ""
@@ -286,7 +299,15 @@ function Download() {
                     {data ? data.personalInfo.techSkills : ""}
                   </p>
                 </div>
-                <hr className="hr-line" />{" "}
+                <hr className="hr-line" />
+                <hr
+                  className={pageBreak === 2 ? "html2pdf__page-break" : ""}
+                  style={{
+                    display: "block",
+                    marginTop: "0px",
+                    color: "transparent",
+                  }}
+                />
               </>
             ) : (
               ""
@@ -312,7 +333,15 @@ function Download() {
                       : ""}
                   </ul>
                 </div>
-                <hr className="hr-line" />{" "}
+                <hr className="hr-line" />
+                <hr
+                  className={pageBreak === 3 ? "html2pdf__page-break" : ""}
+                  style={{
+                    display: "block",
+                    marginTop: "0px",
+                    color: "transparent",
+                  }}
+                />
               </>
             ) : (
               ""
@@ -336,7 +365,15 @@ function Download() {
                       : ""}
                   </ul>
                 </div>
-                <hr className="hr-line" />{" "}
+                <hr className="hr-line" />
+                <hr
+                  className={pageBreak === 4 ? "html2pdf__page-break" : ""}
+                  style={{
+                    display: "block",
+                    marginTop: "0px",
+                    color: "transparent",
+                  }}
+                />
               </>
             ) : (
               ""
@@ -364,19 +401,19 @@ function Download() {
                       : ""}
                   </ul>
                 </div>
-                <hr className="hr-line" />{" "}
+                <hr className="hr-line" />
+                <hr
+                  className={pageBreak === 5 ? "html2pdf__page-break" : ""}
+                  style={{
+                    display: "block",
+                    marginTop: "0px",
+                    color: "transparent",
+                  }}
+                />
               </>
             ) : (
               ""
             )}
-            <hr
-              // className="html2pdf__page-break"
-              style={{
-                display: "block",
-                marginTop: "0px",
-                color: "transparent",
-              }}
-            />
             <h4 className="title1">PERSONAL INFORMATION</h4>
             <table className="table1">
               <tbody>
