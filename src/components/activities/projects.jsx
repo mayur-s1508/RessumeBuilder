@@ -1,11 +1,11 @@
 import React from "react";
-
-import MaterialTable from "material-table";
-import UserContext from "../tools/user_info";
 import { firestore } from "firebase";
+import { useSnackbar } from "notistack";
+
+import BaseTable from "../tools/base_table";
+import UserContext from "../tools/user_info";
 import CircularProgressIndicator from "../tools/circular_progress_indicator";
 import BaseForm from "../tools/base_form";
-import { useSnackbar } from "notistack";
 
 export default function Projects() {
   const [data, setData] = React.useState([]);
@@ -72,33 +72,8 @@ export default function Projects() {
   return (
     <div>
       <CircularProgressIndicator display={pending} />
-      <BaseForm data={data} save={save} />
-      <MaterialTable
-        title=""
-        columns={columns}
-        data={data}
-        style={{ margin: "32px 9px" }}
-        editable={{
-          onRowUpdate: (newData, oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                const dataUpdate = [...data];
-                const index = oldData.tableData.id;
-                dataUpdate[index] = newData;
-                save(false, [...dataUpdate], resolve);
-              }, 1000);
-            }),
-          onRowDelete: (oldData) =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                const dataDelete = [...data];
-                const index = oldData.tableData.id;
-                dataDelete.splice(index, 1);
-                save(false, [...dataDelete], resolve);
-              }, 1000);
-            }),
-        }}
-      />
+      <BaseForm data={data} save={save} headline="Project Details" />
+      <BaseTable columns={columns} data={data} save={save} />
     </div>
   );
 }

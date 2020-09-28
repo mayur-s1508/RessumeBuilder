@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
   },
 }));
 
@@ -58,7 +57,18 @@ function Appbar(props) {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" noWrap>
+        <Typography
+          variant="h6"
+          noWrap
+          className={classes.content}
+          style={{
+            fontWeight: "500",
+            marginTop: "-4px",
+            paddingBottom: "2px",
+            fontSize: "28px",
+            fontFamily: "'Pacifico', cursive",
+          }}
+        >
           Resume Buddy
         </Typography>
       </Toolbar>

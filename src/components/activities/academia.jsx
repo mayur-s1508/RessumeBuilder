@@ -1,4 +1,7 @@
 import React from "react";
+import { firestore } from "firebase";
+import { useSnackbar } from "notistack";
+
 import {
   Grid,
   Paper,
@@ -8,9 +11,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import MaterialTable from "material-table";
+
 import TextInput from "../inputs/text_input";
 import UserContext from "../tools/user_info";
-import { firestore } from "firebase";
 import CircularProgressIndicator from "../tools/circular_progress_indicator";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,14 +31,18 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
 }));
-function Academia() {
+
+export default function Academia() {
   const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
+
   const [exam, setExam] = React.useState("");
   const [institute, setInstitute] = React.useState("");
   const [board, setBoard] = React.useState("");
   const [yop, setYop] = React.useState("");
   const [mark, setMark] = React.useState("");
   const [data, setData] = React.useState([]);
+
   const columns = [
     { title: "Examination", field: "exam" },
     { title: "Institute/School", field: "institute" },
@@ -44,23 +51,54 @@ function Academia() {
     { title: "% of Marks", field: "mark" },
   ];
 
+  const user = React.useContext(UserContext);
+  const [pending, setPending] = React.useState(false);
+
+  const save = (showProgress, newData, callback = () => {}) => {
+    if (showProgress) setPending(true);
+    firestore()
+      .collection("users")
+      .doc(user.uid)
+      .set(
+        {
+          academia: newData.map((d) => ({ ...d, tableData: null })),
+        },
+        { merge: true }
+      )
+      .then(() => {
+        if (showProgress) setPending(false);
+        setData(newData);
+        callback();
+        enqueueSnackbar("Successfully saved data!", {
+          variant: "success",
+        });
+      })
+      .catch((e) => {
+        if (showProgress) setPending(false);
+        alert(e.message);
+        callback();
+        enqueueSnackbar("Failed to save data!", {
+          variant: "error",
+        });
+      });
+  };
+
   const validate = () => {
     if (exam && institute && board && yop && mark) return false;
     return true;
   };
 
   const addAcademic = () => {
-    setData(
-      data.concat([
-        {
-          exam: exam,
-          institute: institute,
-          board: board,
-          yop: yop,
-          mark: mark,
-        },
-      ])
-    );
+    save(true, [
+      ...data,
+      {
+        exam: exam,
+        institute: institute,
+        board: board,
+        yop: yop,
+        mark: mark,
+      },
+    ]);
     setExam("");
     setInstitute("");
     setBoard("");
@@ -68,32 +106,8 @@ function Academia() {
     setMark("");
   };
 
-  const user = React.useContext(UserContext);
-  const [pending, setPending] = React.useState(false);
-  const save = () => {
-    setPending(true);
-    firestore()
-      .collection("users")
-      .doc(user.uid)
-      .set(
-        {
-          academia: data,
-        },
-        { merge: true }
-      )
-      .then(() => {
-        setPending(false);
-        alert("Data saved successfully");
-      })
-      .catch((e) => {
-        setPending(false);
-        alert(e.message);
-      });
-  };
-
   React.useEffect(() => {
     setPending(true);
-
     firestore()
       .collection("users")
       .doc(user.uid)
@@ -105,10 +119,12 @@ function Academia() {
         setPending(false);
       })
       .catch((e) => {
-        console.log(e);
         setPending(false);
+        enqueueSnackbar("Failed to fetch data!", {
+          variant: "error",
+        });
       });
-  }, [user.uid]);
+  }, [enqueueSnackbar, user.uid]);
 
   return (
     <div>
@@ -166,9 +182,7 @@ function Academia() {
                 const dataUpdate = [...data];
                 const index = oldData.tableData.id;
                 dataUpdate[index] = newData;
-                setData([...dataUpdate]);
-
-                resolve();
+                save(false, [...dataUpdate], resolve);
               }, 1000);
             }),
           onRowDelete: (oldData) =>
@@ -177,25 +191,11 @@ function Academia() {
                 const dataDelete = [...data];
                 const index = oldData.tableData.id;
                 dataDelete.splice(index, 1);
-                setData([...dataDelete]);
-
-                resolve();
+                save(false, [...dataDelete], resolve);
               }, 1000);
             }),
         }}
       />
-      <CardActions className={classes.cardActions}>
-        <Button
-          variant="contained"
-          color="primary"
-          disabled={data.length === 0}
-          onClick={save}
-        >
-          Save
-        </Button>
-      </CardActions>
     </div>
   );
 }
-
-export default Academia;

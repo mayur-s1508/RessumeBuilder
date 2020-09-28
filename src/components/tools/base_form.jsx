@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 function BaseForm(props) {
   const classes = useStyles();
-  const { data, save } = props;
+  const { data, save, headline } = props;
   const [title, setTitle] = React.useState("");
   const [subtitle, setSubtitle] = React.useState("");
   const [info, setInfo] = React.useState("");
@@ -38,16 +38,7 @@ function BaseForm(props) {
   };
 
   const addNewData = () => {
-    save(
-      true,
-      data.concat([
-        {
-          title: title,
-          subtitle: subtitle,
-          info: info,
-        },
-      ])
-    );
+    save(true, [{ title: title, subtitle: subtitle, info: info }, ...data]);
     setTitle("");
     setSubtitle("");
     setInfo("");
@@ -56,7 +47,7 @@ function BaseForm(props) {
   return (
     <Paper className={classes.root}>
       <Typography variant="h4" className={classes.heading}>
-        Project Details
+        {headline}
       </Typography>
       <Grid container spacing={3}>
         <Grid xs={12} item>

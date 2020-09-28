@@ -16,9 +16,10 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import Copyright from "../tools/copyright";
 import CircularProgressIndicator from "../tools/circular_progress_indicator";
-// import logo from "../../../assets/images/logo.png";
+import logo from "../../images/login.jpg";
 import EmailInput from "../inputs/email_input";
 import PasswordInput from "../inputs/password_input";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     paddingTop: theme.spacing(8),
@@ -98,11 +99,31 @@ export default function SignIn({ history }) {
   }
   return (
     <div>
+      <div
+        src={logo}
+        style={{
+          position: "absolute",
+          background: "url(" + logo + ")",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          minHeight: "100vh",
+          minWidth: "100%",
+          filter: "opacity(0.4)",
+          zIndex: "-1",
+        }}
+      />
       <CircularProgressIndicator display={isLoginProgress} />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-          <Typography component="h1" variant="h4">
+          <Typography
+            component="h1"
+            variant="h3"
+            style={{
+              fontWeight: "500",
+              fontFamily: "'Pacifico', cursive",
+            }}
+          >
             Resume Buddy
           </Typography>
           <Avatar className={classes.avatar}>

@@ -246,16 +246,13 @@ function Download() {
                 <div>
                   <ul>
                     {data
-                      ? data.projects
-                          .slice()
-                          .reverse()
-                          .map((e, index) => (
-                            <li key={index}>
-                              <b>{e.title}</b>
-                              {e.subtitle ? " – " + e.subtitle : ""}
-                              {e.info ? " – " + e.info : ""}
-                            </li>
-                          ))
+                      ? data.projects.map((e, index) => (
+                          <li key={index}>
+                            <b>{e.title}</b>
+                            {e.subtitle ? " – " + e.subtitle : ""}
+                            {e.info ? " – " + e.info : ""}
+                          </li>
+                        ))
                       : ""}
                   </ul>
                 </div>
@@ -282,16 +279,13 @@ function Download() {
                 <div>
                   <ul>
                     {data
-                      ? data.certifications
-                          .slice()
-                          .reverse()
-                          .map((e, index) => (
-                            <li key={index}>
-                              <b>{e.title}</b>
-                              {e.subtitle ? " – " + e.subtitle : ""}
-                              {e.info ? " – " + e.info : ""}
-                            </li>
-                          ))
+                      ? data.certifications.map((e, index) => (
+                          <li key={index}>
+                            <b>{e.title}</b>
+                            {e.subtitle ? " – " + e.subtitle : ""}
+                            {e.info ? " – " + e.info : ""}
+                          </li>
+                        ))
                       : ""}
                   </ul>
                   <p className="teck-skills">
@@ -320,16 +314,13 @@ function Download() {
                 <div>
                   <ul>
                     {data
-                      ? data.internship
-                          .slice()
-                          .reverse()
-                          .map((e, index) => (
-                            <li key={index}>
-                              <b>{e.title}</b>
-                              {e.subtitle ? " – " + e.subtitle : ""}
-                              {e.info ? " – " + e.info : ""}
-                            </li>
-                          ))
+                      ? data.internship.map((e, index) => (
+                          <li key={index}>
+                            <b>{e.title}</b>
+                            {e.subtitle ? " – " + e.subtitle : ""}
+                            {e.info ? " – " + e.info : ""}
+                          </li>
+                        ))
                       : ""}
                   </ul>
                 </div>
@@ -352,16 +343,13 @@ function Download() {
                 <div>
                   <ul>
                     {data
-                      ? data.por
-                          .slice()
-                          .reverse()
-                          .map((e, index) => (
-                            <li key={index}>
-                              <b>{e.title}</b>
-                              {e.subtitle ? " – " + e.subtitle : ""}
-                              {e.info ? " – " + e.info : ""}
-                            </li>
-                          ))
+                      ? data.por.map((e, index) => (
+                          <li key={index}>
+                            <b>{e.title}</b>
+                            {e.subtitle ? " – " + e.subtitle : ""}
+                            {e.info ? " – " + e.info : ""}
+                          </li>
+                        ))
                       : ""}
                   </ul>
                 </div>
@@ -388,16 +376,13 @@ function Download() {
                 <div>
                   <ul>
                     {data
-                      ? data.activities
-                          .slice()
-                          .reverse()
-                          .map((e, index) => (
-                            <li key={index}>
-                              <b>{e.title}</b>
-                              {e.subtitle ? " – " + e.subtitle : ""}
-                              {e.info ? " – " + e.info : ""}
-                            </li>
-                          ))
+                      ? data.activities.map((e, index) => (
+                          <li key={index}>
+                            <b>{e.title}</b>
+                            {e.subtitle ? " – " + e.subtitle : ""}
+                            {e.info ? " – " + e.info : ""}
+                          </li>
+                        ))
                       : ""}
                   </ul>
                 </div>

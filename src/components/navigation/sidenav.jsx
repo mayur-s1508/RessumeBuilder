@@ -10,6 +10,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { auth } from "firebase";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import logo from "../../images/bg2.jpg";
 
 const drawerWidth = 240;
 
@@ -106,6 +107,19 @@ function Sidenav(props) {
   };
   const drawer = (
     <div>
+      <div
+        style={{
+          position: "absolute",
+          background: "url(" + logo + ")",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "right",
+          minHeight: "100vh",
+          minWidth: "100%",
+          filter: "opacity(0.2)",
+          zIndex: "-1",
+        }}
+      ></div>
       <div className={classes.toolbar} />
       <Divider />
       <List>

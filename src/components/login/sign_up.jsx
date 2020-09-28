@@ -4,7 +4,7 @@ import { auth } from "firebase";
 
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-// import logo from "../../images/logo.jpg";
+import logo from "../../images/login.jpg";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -75,11 +75,31 @@ export const SupplierSignup = (props) => {
 
   return (
     <div>
+      <div
+        src={logo}
+        style={{
+          position: "absolute",
+          background: "url(" + logo + ")",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          minHeight: "100vh",
+          minWidth: "100%",
+          filter: "opacity(0.4)",
+          zIndex: "-1",
+        }}
+      />
       <CircularProgressIndicator display={isLoginProgress} />
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-          <Typography component="h1" variant="h4">
+          <Typography
+            component="h1"
+            variant="h3"
+            style={{
+              fontWeight: "500",
+              fontFamily: "'Pacifico', cursive",
+            }}
+          >
             Resume Buddy
           </Typography>
           <Avatar className={classes.avatar}>
