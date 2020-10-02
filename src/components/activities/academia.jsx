@@ -90,7 +90,6 @@ export default function Academia() {
 
   const addAcademic = () => {
     save(true, [
-      ...data,
       {
         exam: exam,
         institute: institute,
@@ -98,6 +97,7 @@ export default function Academia() {
         yop: yop,
         mark: mark,
       },
+      ...data,
     ]);
     setExam("");
     setInstitute("");

@@ -218,18 +218,15 @@ function Download() {
               </thead>
               <tbody>
                 {data ? (
-                  data.academia
-                    .slice()
-                    .reverse()
-                    .map((e, index) => (
-                      <tr key={index}>
-                        <td>{e.exam}</td>
-                        <td>{e.institute}</td>
-                        <td>{e.board}</td>
-                        <td>{e.yop}</td>
-                        <td>{e.mark}</td>
-                      </tr>
-                    ))
+                  data.academia.map((e, index) => (
+                    <tr key={index}>
+                      <td>{e.exam}</td>
+                      <td>{e.institute}</td>
+                      <td>{e.board}</td>
+                      <td>{e.yop}</td>
+                      <td>{e.mark}</td>
+                    </tr>
+                  ))
                 ) : (
                   <tr>
                     <td>No Data</td>
